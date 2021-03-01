@@ -1,7 +1,8 @@
 `default_nettype none
 
 module shift_register #(
-    parameter WIDTH = 8
+    parameter WIDTH = 8,
+    parameter COVER = 0
 ) (
     input wire clk_i,
     input wire rst_i,
@@ -27,7 +28,7 @@ module shift_register #(
         f_past_valid <= 1;
 
     // Create a testbench that writes the value 0xa5 to the shift register
-    generate if (WIDTH >= 8)
+    generate if (COVER==1 && WIDTH >= 8) begin
         reg [5:0] f_num_advance = 0;
         reg [5:0] f_num_reset = 0;
         always @(posedge clk_i) begin
@@ -36,7 +37,7 @@ module shift_register #(
         end
         always @(posedge clk_i)
             cover(f_num_reset>=1 && f_num_advance>=16 && value_o==8'ha5);
-    endgenerate
+    end endgenerate
 
     // Check that the shift register advances if and only if requested
     always @(posedge clk_i)

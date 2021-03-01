@@ -22,7 +22,8 @@ smtbmc
 
 [script]
 read -formal shift_register.v
+chparam -set COVER 1 shift_register
 prep -top shift_register
 
 [files]
-../src/adwranovsky__shift_register_0.1/rtl/shift_register.v
+../src/adwranovsky__shift_register_0.2/rtl/shift_register.v
