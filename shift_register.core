@@ -1,6 +1,6 @@
 CAPI=2:
 
-name: adwranovsky::shift_register:0.2
+name: adwranovsky:blips:shift_register:0.2
 
 filesets:
     rtl:
