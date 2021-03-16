@@ -1,5 +1,17 @@
 `default_nettype none
 
+/*
+ * shift_register - A simple shift register module
+ *
+ * Parameters:
+ *  WIDTH - The bit width of the shift register
+ *  COVER - For testing use only. Set to 1 to include cover properties during formal verification
+ *
+ * Ports:
+ *  clk_i = The system clock
+ *  rst_i = An active high, synchronous reset that sets value_o to 0
+ *  advance_i = When high, The value of bit_i appears on value_o[0] and the rest of value_o shifts upwards
+ */
 module shift_register #(
     parameter WIDTH = 8,
     parameter COVER = 0
