@@ -1,11 +1,12 @@
 CAPI=2:
 
-name: adwranovsky:blips:shift_register:0.2
+name: adwranovsky:blips:shift_register:1.0
 
 filesets:
     rtl:
         files:
-            - rtl/shift_register.v
+            - rtl/shift_register_sipo.v
+            - rtl/shift_register_piso.v
         file_type: systemVerilogSource
     formal:
         files:
@@ -15,41 +16,80 @@ filesets:
 targets:
     default:
         filesets: [rtl]
-    lint:
+
+    lint_sipo:
         default_tool: verilator
         filesets: [rtl]
-        toplevel: shift_register
+        toplevel: shift_register_sipo
         tools:
             verilator:
                 mode: "lint-only"
-    quick_synth:
+    lint_piso:
+        default_tool: verilator
+        filesets: [rtl]
+        toplevel: shift_register_piso
+        tools:
+            verilator:
+                mode: "lint-only"
+
+    quick_synth_sipo:
         default_tool: yosys
         filesets: [rtl]
-        toplevel: shift_register
+        toplevel: shift_register_sipo
         tools:
             yosys:
                 arch: xilinx
-    bmc:
+    quick_synth_piso:
+        default_tool: yosys
+        filesets: [rtl]
+        toplevel: shift_register_piso
+        tools:
+            yosys:
+                arch: xilinx
+
+    bmc_sipo:
         default_tool: symbiyosys
         filesets: [rtl, formal]
-        toplevel: shift_register
+        toplevel: shift_register_sipo
         tools:
             symbiyosys:
-                tasknames: [bmc]
-    prove:
+                tasknames: [bmc_sipo]
+    prove_sipo:
         default_tool: symbiyosys
         filesets: [rtl, formal]
-        toplevel: shift_register
+        toplevel: shift_register_sipo
         tools:
             symbiyosys:
-                tasknames: [prove]
-    cover:
+                tasknames: [prove_sipo]
+    cover_sipo:
         default_tool: symbiyosys
         filesets: [rtl, formal]
-        toplevel: shift_register
+        toplevel: shift_register_sipo
         tools:
             symbiyosys:
-                tasknames: [cover]
+                tasknames: [cover_sipo]
+
+    bmc_piso:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: shift_register_piso
+        tools:
+            symbiyosys:
+                tasknames: [bmc_piso]
+    prove_piso:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: shift_register_piso
+        tools:
+            symbiyosys:
+                tasknames: [prove_piso]
+    cover_piso:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: shift_register_piso
+        tools:
+            symbiyosys:
+                tasknames: [cover_piso]
 
 parameters:
     WIDTH:

@@ -1,7 +1,10 @@
 [tasks]
-bmc
-prove
-cover
+bmc_sipo bmc sipo
+prove_sipo prove sipo
+cover_sipo cover sipo
+bmc_piso bmc piso
+prove_piso prove piso
+cover_piso cover piso
 
 [options]
 bmc:
@@ -21,9 +24,16 @@ depth 200
 smtbmc
 
 [script]
-read -formal shift_register.v
-chparam -set COVER 1 shift_register
-prep -top shift_register
+sipo:
+read -formal shift_register_sipo.v
+chparam -set COVER 1 shift_register_sipo
+prep -top shift_register_sipo
+
+piso:
+read -formal shift_register_piso.v
+chparam -set COVER 1 shift_register_piso
+prep -top shift_register_piso
+--
 
 [files]
-../src/adwranovsky__shift_register_0.2/rtl/shift_register.v
+{{files}}
