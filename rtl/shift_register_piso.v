@@ -68,6 +68,18 @@ module shift_register_piso #(
 
     end endgenerate
 
+    // Check that the shift register advances if and only if requested
+    always @(posedge clk_i)
+        if (f_past_valid)
+            if ($past(rst_i))
+                assert(bit_o == 0);
+            else if ($past(set_i))
+                assert(bit_o == $past(value_i[0]));
+            else if ($past(advance_i))
+                assert(bit_o == $past(value[1]));
+            else
+                assert(bit_o == $past(bit_o));
+
 `endif
 
 endmodule
