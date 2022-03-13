@@ -17,7 +17,7 @@ depth 10
 
 cover:
 mode cover
-depth 200
+depth 60
 --
 
 [engines]
