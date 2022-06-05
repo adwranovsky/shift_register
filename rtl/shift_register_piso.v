@@ -5,6 +5,8 @@
  *
  * Parameters:
  *  WIDTH - The bit width of the shift register
+ *  DEFAULT_VALUE - The default value loaded into the internal register on reset
+ *  FILL_VALUE - Either 1'b1 or 1'b0. The internal register is filled from the left with this value when advance_i is high
  *  COVER - For testing use only. Set to 1 to include cover properties during formal verification
  *
  * Ports:
@@ -18,6 +20,8 @@
  */
 module shift_register_piso #(
     parameter WIDTH = 8,
+    parameter reg [WIDTH-1:0] DEFAULT_VALUE = 0,
+    parameter reg FILL_VALUE = 1'b0,
     parameter COVER = 0
 ) (
     input wire  clk_i,
@@ -28,14 +32,14 @@ module shift_register_piso #(
     input wire  [WIDTH-1:0] value_i
 );
 
-    reg [WIDTH-1:0] value;
+    reg [WIDTH-1:0] value = DEFAULT_VALUE;
     always @(posedge clk_i)
         if (rst_i)
-            value <= 0;
+            value <= DEFAULT_VALUE;
         else if (set_i)
             value <= value_i;
         else if (advance_i)
-            value <= {1'b0,value[WIDTH-1:1]};
+            value <= {FILL_VALUE,value[WIDTH-1:1]};
         else
             value <= value;
 

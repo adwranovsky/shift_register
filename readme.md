@@ -23,6 +23,13 @@ A simple parallel-in serial-out shift register module
 ## Parameters
 ### WIDTH
 The bit width of the shift register
+
+### DEFAULT_VALUE
+The default value loaded into the internal register on reset
+
+### FILL_VALUE
+Either 1'b1 or 1'b0. The internal register is filled from the left with this value when advance_i is high
+
 ### COVER
 For testing use only. Set to 1 to include cover properties during formal verification
 
